@@ -1,22 +1,27 @@
 // server.js
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const cors = require('cors'); // Import CORS
+const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
 // Enable CORS with options
 app.use(cors({
-  origin: 'https://cookies-self-three.vercel.app', // Replace with the URL of your Next.js app
+  origin: 'https://cookies-self-three.vercel.app', // Replace with your Next.js app URL
   credentials: true, // Allow credentials (cookies)
 }));
 
 // Middleware to parse cookies
 app.use(cookieParser());
 
-// Route to set a cookie
+// Route to set a cookie with SameSite=None and Secure attributes
 app.get('/set-cookie', (req, res) => {
-  res.cookie('myCookie', 'cookieValue', { maxAge: 900000, httpOnly: true });
+  res.cookie('myCookie', 'cookieValue', {
+    maxAge: 900000,      // Cookie expires after 15 minutes
+    httpOnly: true,      // Ensures the cookie is only accessible by the server
+    secure: true,        // Ensures the cookie is sent only over HTTPS
+    sameSite: 'none',    // Allows the cookie to be sent cross-site
+  });
   res.send('Cookie has been set!');
 });
 
