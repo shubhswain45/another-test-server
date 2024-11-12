@@ -7,7 +7,7 @@ const PORT = 3000;
 
 // Enable CORS with options
 app.use(cors({
-  origin: 'http://localhost:3001', // Replace with the URL of your Next.js app
+  origin: 'https://cookies-self-three.vercel.app', // Replace with the URL of your Next.js app
   credentials: true, // Allow credentials (cookies)
 }));
 
